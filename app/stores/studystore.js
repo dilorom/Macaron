@@ -87,6 +87,7 @@ var studyStore = Reflux.createStore({
 		{
 			this._data.currentMode = displayMode;
 			this.trigger(this._data);
+			console.log("this.data", this._data);
 		}
 	}
 

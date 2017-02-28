@@ -12,14 +12,17 @@ var LogStore = require('./stores/logstore.js');
 var UserAgreement = require('./useragreement.jsx');
 var UserInstructions = require('./userinstructions.jsx');
 var VersionHistory = require('./versionHistory.jsx');
-
-
+//dilorom
+var VTIconStore = require('./stores/vticonstore.js');
+//dilorom
 var EditorHeader = React.createClass({
 
 	mixins : [
 				Reflux.connect(AnimationStore.store, 'animation'), //emitted updates go to 'animation' key
 				Reflux.connect(StudyStore.store, 'study'), //emitted updates go to 'study' key
 					
+				//hasti
+				Reflux.connect(VTIconStore.store, 'vticons'), //emitted updates go to 'vticon' key
 			],
 
 	propTypes: {
@@ -30,6 +33,9 @@ var EditorHeader = React.createClass({
 	    	displayAnimation:false,
 	    	displayInterfaceMode:false,
 	    	displaySaveButton:true,
+//dilorom
+	    	displayChangeButton:true,
+	    	//dilorom
 	    	displayStartButton:false,
 			uploadFileID:"uploadedFile"
 	    }
@@ -50,6 +56,14 @@ var EditorHeader = React.createClass({
 	_onSaveClick : function(e) {
 		SaveLoadStore.actions.save();
 	},
+
+	//dilorom
+	_onChangeClick : function(e) {
+		VTIconStore.actions.changeAmplitude();
+		//console.log("hello");
+	},
+
+	//dilorom
 
 	_onLoadButtonClick : function(e) {
 		document.getElementById(this.props.uploadFileID).click();
@@ -92,7 +106,7 @@ var EditorHeader = React.createClass({
 			marginLeft:'0.5em',
 			marginRight:'0.5em',
 			className:'unselectable',
-			fontSize:12
+			fontSize:16 //was 12
 		};
 
 		//The UBC Logo to be placed next to the title
@@ -135,6 +149,13 @@ var EditorHeader = React.createClass({
 			saveButton = (<a class="btn header" style={buttonStyle} onClick={this._onSaveClick} ><i className="fa fa-download"></i>Save</a>);
 			//saveButton = (<button onClick={this._onSaveClick}><i class="fa fa-download"></i>Finish</button>);
 		}
+     //dilorom
+	     var changeButton = <span />
+			if (this.props.displayChangeButton)
+			{
+				changeButton = (<a class="btn header" style={buttonStyle} onClick={this._onChangeClick}>Change_Amp</a>);
+			}
+		//dilorom
 
 		var loadButton = <span />
 		if (this.props.displaySaveButton)
@@ -154,7 +175,7 @@ var EditorHeader = React.createClass({
 
 				
 				<span className="title unselectable" >
-					Macaron
+					VibTune
 					<VersionHistory/>
 				</span>
 				<span className="menu">
@@ -164,7 +185,8 @@ var EditorHeader = React.createClass({
 					<UserAgreement />
 					{saveButton}
 					{loadButton}
-					
+					{changeButton}
+										
 
 				</span>
 

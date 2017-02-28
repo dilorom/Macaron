@@ -32,7 +32,10 @@ var vticonActions = Reflux.createActions(
 		'undo',
 		'redo',
 
-		'deleteSelectedKeyframes'
+		'deleteSelectedKeyframes',
+		//hasti
+		'changeAmplitude'
+		//hasti
 	]
 
 );
@@ -709,10 +712,21 @@ var vticonStore = Reflux.createStore({
 	//compares two keyframes
 	_keyframeCompare(a, b) {
 		return (a.t - b.t);
+	},
+
+	//Hasti
+	onChangeAmplitude(dv) {
+		// this._data[name].parameters[p].data[i].t += dt;
+		// this._data[name].parameters[p].data[i].value += dv[p];
+
+		var dv = 0.3;
+		for (var ii = 0; ii < this._data["main"].parameters["amplitude"].data.length; ii++) {
+			this._data["main"].parameters["amplitude"].data[ii].value += dv;
+			console.log(ii);
+		}
+		this.trigger(this._data);
 	}
-
-
-
+	//Hasti
 	});
 
 
